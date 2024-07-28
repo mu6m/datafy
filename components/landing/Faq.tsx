@@ -37,7 +37,7 @@ export default function Component() {
 							</AccordionTrigger>
 							<AccordionContent>
 								<div className="space-y-2 py-4 text-muted-foreground">
-									<p>your data is saved until you delete it then it's gone</p>
+									<p>your data is saved until you delete it then its gone</p>
 								</div>
 							</AccordionContent>
 						</AccordionItem>

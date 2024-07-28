@@ -54,7 +54,7 @@ export default function Hero() {
 					</div>
 					<div className="flex flex-col items-center">
 						<AwardIcon className="w-8 h-8 mb-2 stroke-blue-500" />
-						<p>It's Free and Open Source</p>
+						<p>Its Free and Open Source</p>
 					</div>
 				</div>
 			</div>

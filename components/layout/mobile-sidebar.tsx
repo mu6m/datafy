@@ -5,7 +5,7 @@ import { navItems } from "@/constants/data";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
 
-export function MobileSidebar({ className }: SidebarProps) {
+export function MobileSidebar({ className }: any) {
 	const [open, setOpen] = useState(false);
 	return (
 		<>

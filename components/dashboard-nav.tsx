@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { Dispatch, SetStateAction } from "react";
 import { useSidebar } from "@/hooks/useSidebar";
@@ -33,10 +32,9 @@ export function DashboardNav({
 	}
 
 	return (
-		<nav className="grid items-start gap-2">
+		<nav className="grid items-start gap-2 px-4">
 			<TooltipProvider>
-				{items.map((item, index) => {
-					const Icon = Icons[item.icon || "arrowRight"];
+				{items.map((item: any, index) => {
 					return (
 						item.href && (
 							<Tooltip key={index}>
@@ -44,18 +42,18 @@ export function DashboardNav({
 									<Link
 										href={item.disabled ? "/" : item.href}
 										className={cn(
-											"flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
-											path === item.href ? "bg-accent" : "transparent",
+											"flex px-3 gap-2 items-center overflow-hidden rounded-md py-2 text-sm font-medium hover:bg-slate-100 hover:text-accent-foreground",
+											path === item.href ? "bg-slate-200" : "transparent",
 											item.disabled && "cursor-not-allowed opacity-80"
 										)}
 										onClick={() => {
 											if (setOpen) setOpen(false);
 										}}
 									>
-										<Icon className={`ml-3 size-5`} />
+										<item.icon className={`min-w-8`} />
 
 										{isMobileNav || (!isMinimized && !isMobileNav) ? (
-											<span className="mr-2 truncate">{item.title}</span>
+											<span className="truncate">{item.title}</span>
 										) : (
 											""
 										)}

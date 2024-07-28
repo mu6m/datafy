@@ -168,7 +168,7 @@ export default function Comp() {
 							</div>
 							<div className="flex gap-4 overflow-x-auto">
 								{[...Array(cols)].map((e, i) => (
-									<div className="min-w-80 p-2 rounded-md bg-slate-100">
+									<div key={i} className="min-w-80 p-2 rounded-md bg-slate-100">
 										<Column />
 									</div>
 								))}

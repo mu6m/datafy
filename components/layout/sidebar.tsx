@@ -24,7 +24,7 @@ export default function Sidebar({ className }: SidebarProps) {
 			className={cn(
 				`relative hidden min-h-screen flex-none border-r z-10 md:block`,
 				status && "duration-500",
-				!isMinimized ? "w-72" : "w-[72px]",
+				!isMinimized ? "w-72" : "min-w-16",
 				className
 			)}
 		>

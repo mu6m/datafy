@@ -4,7 +4,6 @@ import { domain } from "@/constants/config";
 import { db } from "@/db";
 import { user } from "@/db/schema";
 import { signAccessToken, verifyAccessToken } from "@/lib/jwt";
-import prisma from "@/lib/prisma";
 import { eq } from "drizzle-orm";
 import { Resend } from "resend";
 import { z } from "zod";

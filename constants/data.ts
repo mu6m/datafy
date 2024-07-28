@@ -1,22 +1,22 @@
-import { NavItem } from "@/types";
+import { Box, LayoutDashboardIcon, User } from "lucide-react";
 
-export const navItems: NavItem[] = [
+export const navItems: any[] = [
 	{
 		title: "Dashboard",
 		href: "/user",
-		icon: "dashboard",
+		icon: LayoutDashboardIcon,
 		label: "Dashboard",
 	},
 	{
 		title: "Tasks",
 		href: "/user/tasks",
-		icon: "product",
-		label: "Products",
+		icon: Box,
+		label: "Tasks",
 	},
 	{
 		title: "User",
 		href: "/user/settings",
-		icon: "user",
+		icon: User,
 		label: "User",
 	},
 ];

@@ -42,7 +42,7 @@ export async function create(prevState: any, formData: FormData) {
 		};
 	}
 
-	const token = await verifyAccessToken(parse.data.token);
+	const token: any = await verifyAccessToken(parse.data.token);
 	if (token === false || !token) {
 		return {
 			success: false,

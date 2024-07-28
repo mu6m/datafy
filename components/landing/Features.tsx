@@ -41,7 +41,7 @@ export default function Features() {
 							<h3 className="text-lg font-bold">Scalable Infrastructure</h3>
 						</div>
 						<p className="text-muted-foreground">
-							it's opensource scale it as you want
+							its opensource scale it as you want
 						</p>
 					</div>
 					<div className="grid gap-4">

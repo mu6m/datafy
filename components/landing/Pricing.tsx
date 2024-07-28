@@ -18,7 +18,7 @@ export default function Pricing() {
 						Pricing 💸
 					</h2>
 					<p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-						It's Free And OpenSource!
+						Its Free And OpenSource!
 					</p>
 				</div>
 				<div className="grid w-full max-w-md grid-cols-1 gap-4">
@@ -26,7 +26,7 @@ export default function Pricing() {
 						<CardHeader>
 							<CardTitle>Free</CardTitle>
 							<CardDescription>
-								It's just free generate your data
+								Its just free generate your data
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-4">

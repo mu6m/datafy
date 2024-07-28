@@ -193,7 +193,10 @@ export default function Comp({ searchParams }: any) {
 								<div className="flex gap-4 overflow-x-auto">
 									{[...Array(cols)].map((e, i) => {
 										return (
-											<div className="min-w-80 p-2 rounded-md bg-slate-100">
+											<div
+												key={i}
+												className="min-w-80 p-2 rounded-md bg-slate-100"
+											>
 												<Column disabled={view} item={data.item.columns[i]} />
 											</div>
 										);

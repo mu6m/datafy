@@ -43,7 +43,7 @@ export default function Users() {
 									<q className="text-muted-foreground">
 										The next-saas-stripe-starter repo has truly revolutionized
 										my development workflow. With its comprehensive features and
-										seamless integration with Stripe, I've been able to build
+										seamless integration with Stripe, I have been able to build
 										and deploy projects faster than ever before. The
 										documentation is clear and concise, making it easy to
 										navigate through the setup process. I highly recommend
@@ -79,11 +79,11 @@ export default function Users() {
 										</div>
 									</div>
 									<q className="text-muted-foreground">
-										Thanks to next-saas-stripe-starter, I've been able to create
-										modern and attractive user interfaces in record time. The
-										starter kit provides a solid foundation for building sleek
-										and intuitive designs, allowing me to focus more on the
-										creative aspects of my work.
+										Thanks to next-saas-stripe-starter, I have been able to
+										create modern and attractive user interfaces in record time.
+										The starter kit provides a solid foundation for building
+										sleek and intuitive designs, allowing me to focus more on
+										the creative aspects of my work.
 									</q>
 								</div>
 							</div>
@@ -149,8 +149,9 @@ export default function Users() {
 										</div>
 									</div>
 									<q className="text-muted-foreground">
-										I'm impressed by the quality of code and clear documentation
-										of next-saas-stripe-starter. Kudos to the team!
+										I am impressed by the quality of code and clear
+										documentation of next-saas-stripe-starter. Kudos to the
+										team!
 									</q>
 								</div>
 							</div>
@@ -217,7 +218,7 @@ export default function Users() {
 									<q className="text-muted-foreground">
 										next-saas-stripe-starter has been an invaluable asset in my
 										role as a marketing manager. With its seamless integration
-										with Stripe, I've been able to launch targeted marketing
+										with Stripe, I have been able to launch targeted marketing
 										campaigns with built-in payment functionality, allowing us
 										to monetize our products and services more effectively.
 									</q>
