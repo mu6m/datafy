@@ -22,7 +22,9 @@ export default function DashboardLayout({
 					<Header />
 					<div className="flex">
 						<Sidebar />
-						<main className="flex-1 overflow-y-scroll p-16">{children}</main>
+						<main className="flex-1 overflow-y-auto p-16 bg-muted">
+							{children}
+						</main>
 					</div>
 				</body>
 			</html>

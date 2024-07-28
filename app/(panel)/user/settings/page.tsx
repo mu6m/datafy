@@ -30,6 +30,7 @@ function EditForm({ mutate, name, type, value }: any) {
 					placeholder={name}
 					disabled={edit}
 					ref={input}
+					className="bg-white"
 				/>
 			</div>
 			{!edit && (
