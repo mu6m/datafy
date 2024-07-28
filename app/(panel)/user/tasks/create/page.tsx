@@ -94,11 +94,11 @@ export default function Comp() {
 	const [cols, setCols] = useState(1);
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
-		toast({
-			variant: state.success ? "default" : "destructive",
-			title: state.message,
-		});
 		if (state.message != "") {
+			toast({
+				variant: state.success ? "default" : "destructive",
+				title: state.message,
+			});
 		}
 		setLoading(false);
 	}, [state]);

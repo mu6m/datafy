@@ -17,14 +17,12 @@ export default function DashboardLayout({
 	return (
 		<>
 			<html lang="en">
-				<body>
+				<body className="bg-muted">
 					<Toaster />
 					<Header />
 					<div className="flex">
-						<Sidebar />
-						<main className="flex-1 overflow-y-auto p-16 bg-muted">
-							{children}
-						</main>
+						<Sidebar className="bg-white" />
+						<main className="flex-1 overflow-y-auto p-16">{children}</main>
 					</div>
 				</body>
 			</html>

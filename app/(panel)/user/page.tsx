@@ -1,126 +1,95 @@
 "use client";
 
-import * as React from "react";
-import { TrendingUp } from "lucide-react";
-import { Label, Pie, PieChart } from "recharts";
-
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import {
-	ChartConfig,
-	ChartContainer,
-	ChartTooltip,
-	ChartTooltipContent,
-} from "@/components/ui/chart";
-const chartData = [
-	{ browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-	{ browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-	{ browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-	{ browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-	{ browser: "other", visitors: 190, fill: "var(--color-other)" },
-];
-
-const chartConfig = {
-	visitors: {
-		label: "Visitors",
-	},
-	chrome: {
-		label: "Chrome",
-		color: "hsl(var(--chart-1))",
-	},
-	safari: {
-		label: "Safari",
-		color: "hsl(var(--chart-2))",
-	},
-	firefox: {
-		label: "Firefox",
-		color: "hsl(var(--chart-3))",
-	},
-	edge: {
-		label: "Edge",
-		color: "hsl(var(--chart-4))",
-	},
-	other: {
-		label: "Other",
-		color: "hsl(var(--chart-5))",
-	},
-} satisfies ChartConfig;
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Link } from "lucide-react";
+import React from "react";
+import useSWR from "swr";
 
 export default function Comp() {
-	const totalVisitors = React.useMemo(() => {
-		return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-	}, []);
-
+	const fetcher = (url: string) =>
+		fetch(url, { method: "POST" }).then((r) => r.json());
+	let { data, isLoading } = useSWR(`/user/data/`, fetcher);
+	console.log(data);
+	if (isLoading) {
+		return <ReloadIcon className="h-4 w-4 animate-spin mx-auto my-60" />;
+	}
 	return (
-		<Card className="flex flex-col">
-			<CardHeader className="items-center pb-0">
-				<CardTitle>Pie Chart - Donut with Text</CardTitle>
-				<CardDescription>January - June 2024</CardDescription>
-			</CardHeader>
-			<CardContent className="flex-1 pb-0">
-				<ChartContainer
-					config={chartConfig}
-					className="mx-auto aspect-square max-h-[250px]"
-				>
-					<PieChart>
-						<ChartTooltip
-							cursor={false}
-							content={<ChartTooltipContent hideLabel />}
-						/>
-						<Pie
-							data={chartData}
-							dataKey="visitors"
-							nameKey="browser"
-							innerRadius={60}
-							strokeWidth={5}
-						>
-							<Label
-								content={({ viewBox }) => {
-									if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-										return (
-											<text
-												x={viewBox.cx}
-												y={viewBox.cy}
-												textAnchor="middle"
-												dominantBaseline="middle"
-											>
-												<tspan
-													x={viewBox.cx}
-													y={viewBox.cy}
-													className="fill-foreground text-3xl font-bold"
-												>
-													{totalVisitors.toLocaleString()}
-												</tspan>
-												<tspan
-													x={viewBox.cx}
-													y={(viewBox.cy || 0) + 24}
-													className="fill-muted-foreground"
-												>
-													Visitors
-												</tspan>
-											</text>
-										);
-									}
-								}}
-							/>
-						</Pie>
-					</PieChart>
-				</ChartContainer>
-			</CardContent>
-			<CardFooter className="flex-col gap-2 text-sm">
-				<div className="flex items-center gap-2 font-medium leading-none">
-					Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+		<div className="flex flex-col gap-4 max-w-xl w-full mx-auto">
+			<div className="flex flex-col justify-between items-center w-full  md:flex-row gap-4">
+				<div className="bg-white overflow-hidden shadow sm:rounded-lg dark:bg-gray-900">
+					<div className="px-4 py-5 sm:p-6">
+						<dl>
+							<dt className="text-sm leading-5 font-medium text-gray-500 truncate dark:text-gray-400">
+								Dataset pending
+							</dt>
+							<dd className="mt-1 text-3xl leading-9 font-semibold text-indigo-600 dark:text-indigo-400">
+								{data.pending.count}
+							</dd>
+						</dl>
+					</div>
 				</div>
-				<div className="leading-none text-muted-foreground">
-					Showing total visitors for the last 6 months
+				<div className="bg-white overflow-hidden shadow sm:rounded-lg dark:bg-gray-900">
+					<div className="px-4 py-5 sm:p-6">
+						<dl>
+							<dt className="text-sm leading-5 font-medium text-gray-500 truncate dark:text-gray-400">
+								Dataset finished
+							</dt>
+							<dd className="mt-1 text-3xl leading-9 font-semibold text-green-600 dark:text-indigo-400">
+								{data.finished.count}
+							</dd>
+						</dl>
+					</div>
 				</div>
-			</CardFooter>
-		</Card>
+				<div className="bg-white overflow-hidden shadow sm:rounded-lg dark:bg-gray-900">
+					<div className="px-4 py-5 sm:p-6">
+						<dl>
+							<dt className="text-sm leading-5 font-medium text-gray-500 truncate dark:text-gray-400">
+								Dataset with error
+							</dt>
+							<dd className="mt-1 text-3xl leading-9 font-semibold text-red-600 dark:text-indigo-400">
+								{data.error.count}
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+
+			<div className="relative overflow-x-auto mx-auto bg-white rounded-md w-full">
+				<table className="w-full text-sm text-left rtl:text-right text-gray-500">
+					<thead className="text-xs text-gray-700 uppercase bg-neutral-300">
+						<tr>
+							<th scope="col" className="px-6 py-3">
+								Title
+							</th>
+							<th scope="col" className="px-6 py-3">
+								Link
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{data.items.map((item: any) => {
+							return (
+								<tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+									<th
+										scope="row"
+										className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+									>
+										{item.title}
+									</th>
+									<td className="px-6 py-4">
+										<Link href={`/user/data?id=${item.id}`}></Link>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+				{data.items.length == 0 && (
+					<h1 className="font-bold text-1xl my-8 text-center">
+						no generations are created
+					</h1>
+				)}
+			</div>
+		</div>
 	);
 }

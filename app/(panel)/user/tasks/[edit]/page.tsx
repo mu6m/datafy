@@ -100,7 +100,10 @@ export default function Comp({ searchParams }: any) {
 	});
 	const params = useParams<{ edit: string }>();
 	const fetcher = (url: string) => fetch(url).then((r) => r.json());
-	let { data, mutate } = useSWR(`/user/tasks/read?id=${params.edit}`, fetcher);
+	const { data, mutate, isLoading } = useSWR(
+		`/user/tasks/read?id=${params.edit}`,
+		fetcher
+	);
 	const view: boolean = Boolean(searchParams.view) || false;
 	if (state.success) {
 		mutate();
@@ -128,7 +131,7 @@ export default function Comp({ searchParams }: any) {
 						<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
 							{view ? "View" : "Edit"}
 						</h1>
-						{data ? (
+						{!isLoading ? (
 							<form
 								className="space-y-4 md:space-y-6"
 								onSubmit={(e: any) => {
