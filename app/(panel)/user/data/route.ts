@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 
 export const GET = async ({ request }: any) => {
 	const searchParams = request.nextUrl.searchParams;
-	const id: string = searchParams.get("id");
+	const id: string = searchParams.get("id") || "";
 
 	const cookie = cookies().get("user");
 	const token = await verifyAccessToken(cookie?.value);
@@ -22,7 +22,7 @@ export const GET = async ({ request }: any) => {
 		);
 	}
 	// fetch return the link from cloud storage
-	return Response.json({ url: "" });
+	if (id) return Response.json({ url: "" });
 };
 
 export const POST = async () => {

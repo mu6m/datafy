@@ -30,7 +30,6 @@ export default function Nav() {
 							variant="outline"
 							size="icon"
 							className="relative"
-							asChild
 						>
 							<Link href={"/user/"}>
 								<User2Icon className="size-4" aria-hidden="true" />
@@ -43,7 +42,6 @@ export default function Nav() {
 								variant="outline"
 								size="icon"
 								className="relative"
-								asChild
 							>
 								<Link href={"/auth/register/"}>
 									<UserPlus className="size-4" aria-hidden="true" />

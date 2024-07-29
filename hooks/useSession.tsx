@@ -13,7 +13,7 @@ const cookiesStorage: PersistStorage<UserStore> = {
 		return value ? JSON.parse(value) : null;
 	},
 	setItem: (name: string, value: any) => {
-		return setCookie(name, JSON.stringify(value));
+		setCookie(name, JSON.stringify(value));
 	},
 	removeItem: (name: string) => {
 		removeCookie(name);
