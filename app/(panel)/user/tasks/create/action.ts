@@ -18,7 +18,7 @@ export async function form(prevState: any, formData: FormData) {
 	}
 	const schema = z.object({
 		title: z.string().min(1, { message: "title is required" }),
-		rows: z.number().min(1).max(1_000_000),
+		rows: z.number().min(1).max(10_000),
 		names: z
 			.array(z.string().min(1, { message: "name is required" }))
 			.nonempty(),

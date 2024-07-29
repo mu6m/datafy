@@ -168,7 +168,7 @@ export default function Comp({ searchParams }: any) {
 									<input
 										type="number"
 										min={1}
-										max={1_000_000}
+										max={10_000}
 										id="rows"
 										name="rows"
 										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
