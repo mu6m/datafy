@@ -24,7 +24,8 @@ export default function Component() {
 								<div className="space-y-2 py-4 text-muted-foreground">
 									<p>yes there are some</p>
 									<ul>
-										<li>10,000 rows per generation</li>
+										<li>exporting generations to sql format</li>
+										<li>1,000 rows per generation</li>
 										<li>10 columns per generation</li>
 										<li>5 generations at once</li>
 									</ul>

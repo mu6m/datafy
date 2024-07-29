@@ -6,6 +6,7 @@ import {
 	integer,
 	pgEnum,
 	uniqueIndex,
+	json,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -70,7 +71,23 @@ export const column = pgTable(
 	})
 );
 
+// Gen table
+export const gen = pgTable("gen", {
+	id: uuid("id").primaryKey().defaultRandom(),
+	generate: json("generate").notNull(),
+	taskId: uuid("task_id")
+		.notNull()
+		.references(() => task.id),
+});
+
 // Relations
+export const genRelations = relations(gen, ({ one }) => ({
+	task: one(task, {
+		fields: [gen.taskId],
+		references: [task.id],
+	}),
+}));
+
 export const userRelations = relations(user, ({ many }) => ({
 	tasks: many(task),
 }));
