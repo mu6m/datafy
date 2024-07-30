@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { column, task } from "@/db/schema";
-import { eq, or, ilike, count, desc } from "drizzle-orm";
+import { eq, or, ilike, count, desc, and } from "drizzle-orm";
 import { verifyAccessToken } from "@/lib/jwt";
 import { cookies } from "next/headers";
 
@@ -13,7 +13,7 @@ export const GET = async (request: any, params: any) => {
 	const currentPage: number = Number(searchParams.get("page")) || 1;
 
 	const cookie = cookies().get("user");
-	const token = await verifyAccessToken(cookie?.value);
+	const token: any = await verifyAccessToken(cookie?.value);
 	if (token === false || !token) {
 		return Response.json(
 			{
@@ -27,7 +27,7 @@ export const GET = async (request: any, params: any) => {
 	}
 	if (id) {
 		const item = await db.query.task.findFirst({
-			where: eq(task.id, id),
+			where: and(eq(task.id, id), eq(task.userId, token.id)),
 			with: {
 				columns: true,
 			},
@@ -48,7 +48,7 @@ export const GET = async (request: any, params: any) => {
 	const [page_count] = await db
 		.select({ count: count() })
 		.from(task)
-		.where(ilike(task.title, `%${search}%`));
+		.where(and(ilike(task.title, `%${search}%`), eq(task.userId, token.id)));
 	const pages = Math.ceil(page_count.count / perPage);
 	const items = await db.query.task.findMany({
 		orderBy: desc(task.createdAt),

@@ -3,6 +3,7 @@
 import { db } from "@/db";
 import { column, task, taskStateEnum } from "@/db/schema";
 import { verifyAccessToken } from "@/lib/jwt";
+import axios from "axios";
 import { and, count, eq, ne } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { z } from "zod";
@@ -81,6 +82,9 @@ export async function form(prevState: any, formData: FormData) {
 				});
 			}
 			await tx.insert(column).values(insert_arr);
+			await axios.post("https://datafy.fly.dev/", {
+				id: result.id,
+			});
 		});
 	} catch (error) {
 		return {

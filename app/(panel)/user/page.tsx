@@ -1,6 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import axios from "axios";
 import { Link } from "lucide-react";
 import React from "react";
 import useSWR from "swr";
@@ -80,18 +82,33 @@ export default function Comp() {
 										{item.title}
 									</th>
 									<td className="px-6 py-4">
-										<Link href={`/user/data?id=${item.id}`}></Link>
+										<Button
+											onClick={async () => {
+												await axios.post(
+													"http://datafy.fly.dev/download",
+													{
+														id: item.id,
+													},
+													{
+														responseType: "blob",
+													}
+												);
+											}}
+											variant={"outline"}
+										>
+											Download
+										</Button>
 									</td>
 								</tr>
 							);
 						})}
 					</tbody>
+					{data.items.length == 0 && (
+						<h1 className="font-bold text-1xl my-8 text-center">
+							no generations are created
+						</h1>
+					)}
 				</table>
-				{data.items.length == 0 && (
-					<h1 className="font-bold text-1xl my-8 text-center">
-						no generations are created
-					</h1>
-				)}
 			</div>
 		</div>
 	);
