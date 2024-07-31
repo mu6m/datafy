@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import {
 	Badge,
@@ -25,39 +24,38 @@ export default function Nav() {
 
 				<div className="hidden md:flex items-center gap-4">
 					{user ? (
-						<Button
-							aria-label="dashboard"
-							variant="outline"
-							size="icon"
-							className="relative"
+						<Link
+							className={buttonVariants({
+								variant: "outline",
+								size: "icon",
+								className: "relative",
+							})}
+							href={"/user/"}
 						>
-							<Link href={"/user/"}>
-								<User2Icon className="size-4" aria-hidden="true" />
-							</Link>
-						</Button>
+							<User2Icon className="size-4" aria-hidden="true" />
+						</Link>
 					) : (
 						<>
-							<Button
-								aria-label="register"
-								variant="outline"
-								size="icon"
-								className="relative"
+							<Link
+								className={buttonVariants({
+									variant: "outline",
+									size: "icon",
+									className: "relative",
+								})}
+								href={"/auth/register/"}
 							>
-								<Link href={"/auth/register/"}>
-									<UserPlus className="size-4" aria-hidden="true" />
-								</Link>
-							</Button>
-							<Button
-								aria-label="login"
-								variant="outline"
-								size="icon"
-								className="relative"
-								asChild
+								<UserPlus className="size-4" aria-hidden="true" />
+							</Link>
+							<Link
+								className={buttonVariants({
+									variant: "outline",
+									size: "icon",
+									className: "relative",
+								})}
+								href={"/auth/login/"}
 							>
-								<Link href={"/auth/login/"}>
-									<LogIn className="size-4" aria-hidden="true" />
-								</Link>
-							</Button>
+								<LogIn className="size-4" aria-hidden="true" />
+							</Link>
 						</>
 					)}
 				</div>
@@ -83,15 +81,44 @@ export default function Nav() {
 								<span className="sr-only">Datafy</span>
 							</Link>
 							<nav className="flex flex-col gap-2">
-								<Button
-									aria-label="Open cart"
-									variant="outline"
-									size={"lg"}
-									className="relative flex gap-4"
-								>
-									<User2Icon className="size-4" aria-hidden="true" />
-									Signup
-								</Button>
+								{user ? (
+									<Link
+										className={buttonVariants({
+											variant: "outline",
+											size: "lg",
+											className: "relative flex gap-4",
+										})}
+										href={"/user/"}
+									>
+										<User2Icon className="size-4" aria-hidden="true" />
+										Dashboard
+									</Link>
+								) : (
+									<>
+										<Link
+											className={buttonVariants({
+												variant: "outline",
+												size: "lg",
+												className: "relative flex gap-4",
+											})}
+											href={"/auth/register/"}
+										>
+											<UserPlus className="size-4" aria-hidden="true" />
+											Register
+										</Link>
+										<Link
+											className={buttonVariants({
+												variant: "outline",
+												size: "lg",
+												className: "relative flex gap-4",
+											})}
+											href={"/auth/login/"}
+										>
+											<LogIn className="size-4" aria-hidden="true" />
+											Login
+										</Link>
+									</>
+								)}
 							</nav>
 						</div>
 					</SheetContent>

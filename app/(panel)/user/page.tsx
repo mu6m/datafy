@@ -68,7 +68,7 @@ export default function Comp() {
 	}
 	return (
 		<div className="flex flex-col gap-4 max-w-xl w-full mx-auto">
-			<div className="flex flex-col justify-between items-center w-full  md:flex-row gap-4">
+			<div className="flex justify-between items-center w-full   gap-4">
 				<div className="bg-white overflow-hidden shadow sm:rounded-lg dark:bg-gray-900">
 					<div className="px-4 py-5 sm:p-6">
 						<dl>
