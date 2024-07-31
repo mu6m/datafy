@@ -1,3 +1,5 @@
+//if user token does not exsist then set the user to null
+
 import { create } from "zustand";
 import { persist, PersistStorage } from "zustand/middleware";
 import { getCookie, setCookie, removeCookie } from "typescript-cookie";
