@@ -45,6 +45,7 @@ export const GET = async (request: any, params: any) => {
 		}
 		return Response.json({ item });
 	}
+	//optimize this
 	const [page_count] = await db
 		.select({ count: count() })
 		.from(task)
