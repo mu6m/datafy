@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import useSWR from "swr";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
 	Table,
 	TableHeader,
@@ -76,9 +76,14 @@ export default function DataTable({ searchParams }: any) {
 							Search
 						</Button>
 					</div>
-					<Button size="sm" asChild>
-						<Link href="/user/tasks/create">Create</Link>
-					</Button>
+					<a
+						href="/user/tasks/create"
+						className={buttonVariants({
+							size: "sm",
+						})}
+					>
+						Create
+					</a>
 				</div>
 				<Table>
 					<TableHeader>
@@ -111,22 +116,22 @@ export default function DataTable({ searchParams }: any) {
 													</DropdownMenuTrigger>
 													<DropdownMenuContent align="end">
 														<DropdownMenuItem>
-															<Link
+															<a
 																href={`/user/tasks/${item.id}?view=true`}
 																className="flex gap-1"
 															>
 																<FileIcon className="h-4 w-4 mr-2" />
 																View
-															</Link>
+															</a>
 														</DropdownMenuItem>
 														<DropdownMenuItem>
-															<Link
+															<a
 																href={`/user/tasks/${item.id}`}
 																className="flex gap-1"
 															>
 																<FilePenIcon className="h-4 w-4 mr-2" />
 																Edit
-															</Link>
+															</a>
 														</DropdownMenuItem>
 														<DropdownMenuItem
 															onClick={(e) => {

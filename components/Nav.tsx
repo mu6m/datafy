@@ -1,15 +1,7 @@
 "use client";
-import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import {
-	Badge,
-	DatabaseZap,
-	LogIn,
-	MenuIcon,
-	User2Icon,
-	UserPlus,
-} from "lucide-react";
+import { LogIn, MenuIcon, User2Icon, UserPlus } from "lucide-react";
 import useSession from "@/hooks/useSession";
 
 export default function Nav() {
@@ -17,14 +9,14 @@ export default function Nav() {
 	return (
 		<>
 			<header className="max-w-7xl mx-auto flex items-center justify-between h-16 px-4 bg-white shadow-sm sm:px-6 lg:px-8">
-				<Link href="#" className="flex items-center gap-2" prefetch={false}>
+				<a href="/" className="flex items-center gap-2">
 					<img src="/favicon.png" className="w-9 h-9 rounded-full" alt="logo" />
 					<span className="sr-only">Datafy</span>
-				</Link>
+				</a>
 
 				<div className="hidden md:flex items-center gap-4">
 					{user ? (
-						<Link
+						<a
 							className={buttonVariants({
 								variant: "outline",
 								size: "icon",
@@ -33,10 +25,10 @@ export default function Nav() {
 							href={"/user/"}
 						>
 							<User2Icon className="size-4" aria-hidden="true" />
-						</Link>
+						</a>
 					) : (
 						<>
-							<Link
+							<a
 								className={buttonVariants({
 									variant: "outline",
 									size: "icon",
@@ -45,8 +37,8 @@ export default function Nav() {
 								href={"/auth/register/"}
 							>
 								<UserPlus className="size-4" aria-hidden="true" />
-							</Link>
-							<Link
+							</a>
+							<a
 								className={buttonVariants({
 									variant: "outline",
 									size: "icon",
@@ -55,7 +47,7 @@ export default function Nav() {
 								href={"/auth/login/"}
 							>
 								<LogIn className="size-4" aria-hidden="true" />
-							</Link>
+							</a>
 						</>
 					)}
 				</div>
@@ -68,21 +60,17 @@ export default function Nav() {
 					</SheetTrigger>
 					<SheetContent side="left" className="bg-white">
 						<div className="flex flex-col gap-4 p-4">
-							<Link
-								href="#"
-								className="flex items-center gap-2"
-								prefetch={false}
-							>
+							<a href="#" className="flex items-center gap-2">
 								<img
 									src="/favicon.png"
 									className="w-9 h-9 rounded-full"
 									alt="logo"
 								/>
 								<span className="sr-only">Datafy</span>
-							</Link>
+							</a>
 							<nav className="flex flex-col gap-2">
 								{user ? (
-									<Link
+									<a
 										className={buttonVariants({
 											variant: "outline",
 											size: "lg",
@@ -92,10 +80,10 @@ export default function Nav() {
 									>
 										<User2Icon className="size-4" aria-hidden="true" />
 										Dashboard
-									</Link>
+									</a>
 								) : (
 									<>
-										<Link
+										<a
 											className={buttonVariants({
 												variant: "outline",
 												size: "lg",
@@ -105,8 +93,8 @@ export default function Nav() {
 										>
 											<UserPlus className="size-4" aria-hidden="true" />
 											Register
-										</Link>
-										<Link
+										</a>
+										<a
 											className={buttonVariants({
 												variant: "outline",
 												size: "lg",
@@ -116,7 +104,7 @@ export default function Nav() {
 										>
 											<LogIn className="size-4" aria-hidden="true" />
 											Login
-										</Link>
+										</a>
 									</>
 								)}
 							</nav>
