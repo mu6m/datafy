@@ -9,10 +9,6 @@ interface UserStore {
 
 const cookiesStorage: PersistStorage<UserStore> = {
 	getItem: (name: string) => {
-		if (getCookie("user")) {
-			removeCookie(name);
-			return null;
-		}
 		const value = getCookie(name);
 		return value ? JSON.parse(value) : null;
 	},

@@ -18,6 +18,8 @@ import { removeCookie } from "typescript-cookie";
 
 export function UserNav() {
 	const user = useSession.getState().user;
+	const setUser = useSession((state) => state.setUser);
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -48,6 +50,7 @@ export function UserNav() {
 				<DropdownMenuItem
 					onClick={async () => {
 						removeCookie("user");
+						setUser(null);
 						window.location.href = "/";
 					}}
 				>
