@@ -62,36 +62,36 @@ export async function form(prevState: any, formData: FormData) {
 			message: `task limit exceeded`,
 		};
 	}
-	try {
-		await db.transaction(async (tx) => {
-			const [result] = await tx
-				.insert(task)
-				.values({
-					userId: token.id,
-					title: parse.data.title,
-					rows: parse.data.rows,
-				})
-				.returning({ id: task.id });
-			let insert_arr: any = [];
-			for (let index = 0; index < parse.data.names.length; index++) {
-				insert_arr.push({
-					taskId: result.id,
-					type: parse.data.types[index],
-					generate: parse.data.texts[index],
-					name: parse.data.names[index],
-				});
-			}
-			await tx.insert(column).values(insert_arr);
-			await axios.post("https://datafy.fly.dev/", {
-				id: result.id,
+	await db.transaction(async (tx) => {
+		const [result] = await tx
+			.insert(task)
+			.values({
+				userId: token.id,
+				title: parse.data.title,
+				rows: parse.data.rows,
+			})
+			.returning({ id: task.id });
+		let insert_arr: any = [];
+		for (let index = 0; index < parse.data.names.length; index++) {
+			insert_arr.push({
+				taskId: result.id,
+				type: parse.data.types[index],
+				generate: parse.data.texts[index],
+				name: parse.data.names[index],
 			});
+		}
+		await tx.insert(column).values(insert_arr);
+		await axios.post("https://datafy.fly.dev/add", {
+			id: result.id,
 		});
-	} catch (error) {
-		return {
-			success: false,
-			message: `error in db`,
-		};
-	}
+	});
+	// try {
+	// } catch (error) {
+	// 	return {
+	// 		success: false,
+	// 		message: `error in db`,
+	// 	};
+	// }
 	return {
 		success: true,
 		message: `task "${parse.data.title}" is created`,

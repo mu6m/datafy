@@ -37,19 +37,28 @@ export const user = pgTable("user", {
 });
 
 // Task table
-export const task = pgTable("task", {
-	id: uuid("id").primaryKey().defaultRandom(),
-	title: text("title").notNull().unique(),
-	rows: integer("rows").notNull(),
-	state: taskStateEnum("state").default("PENDING").notNull(),
-	userId: uuid("user_id")
-		.notNull()
-		.references(() => user.id),
-	createdAt: timestamp("created_at").defaultNow(),
-	updatedAt: timestamp("updated_at")
-		.defaultNow()
-		.$onUpdate(() => new Date()),
-});
+export const task = pgTable(
+	"task",
+	{
+		id: uuid("id").primaryKey().defaultRandom(),
+		title: text("title").notNull(),
+		rows: integer("rows").notNull(),
+		state: taskStateEnum("state").default("PENDING").notNull(),
+		userId: uuid("user_id")
+			.notNull()
+			.references(() => user.id),
+		createdAt: timestamp("created_at").defaultNow(),
+		updatedAt: timestamp("updated_at")
+			.defaultNow()
+			.$onUpdate(() => new Date()),
+	},
+	(table) => ({
+		uniqueTaskIdGenerate: uniqueIndex("unique_task_user").on(
+			table.userId,
+			table.title
+		),
+	})
+);
 
 // Column table
 export const column = pgTable(

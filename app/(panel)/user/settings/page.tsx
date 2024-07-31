@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "@/components/ui/use-toast";
 import useSession from "@/hooks/useSession";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import axios from "axios";
@@ -42,6 +43,9 @@ function EditForm({ mutate, name, type, value }: any) {
 							`/user/settings/update?type=${name}`,
 							{
 								[name]: input?.current?.value,
+							},
+							{
+								validateStatus: () => true,
 							}
 						);
 						if (data.success) {
@@ -50,6 +54,10 @@ function EditForm({ mutate, name, type, value }: any) {
 							setUser(user);
 							setEdit(true);
 						}
+						toast({
+							variant: data.success ? "default" : "destructive",
+							title: data.message,
+						});
 						setLoading(false);
 					}}
 					disabled={loading}

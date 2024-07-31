@@ -57,7 +57,7 @@ export const GET = async (request: any, params: any) => {
 		with: {
 			columns: true,
 		},
-		where: ilike(task.title, `%${search}%`),
+		where: and(ilike(task.title, `%${search}%`), eq(task.userId, token.id)),
 	});
 	return Response.json({ items, pages });
 };

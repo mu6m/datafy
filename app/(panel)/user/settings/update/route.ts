@@ -65,10 +65,22 @@ export const POST = async (request: any) => {
 					}
 				);
 			}
-			await db
-				.update(user)
-				.set({ name: [parse.data.name] })
-				.where(eq(user.id, token.id));
+			try {
+				await db
+					.update(user)
+					.set({ name: [parse.data.name] })
+					.where(eq(user.id, token.id));
+			} catch {
+				return Response.json(
+					{
+						success: false,
+						message: `error in db`,
+					},
+					{
+						status: 400,
+					}
+				);
+			}
 			break;
 		case "username":
 			parse = schema_username.safeParse({
@@ -85,10 +97,22 @@ export const POST = async (request: any) => {
 					}
 				);
 			}
-			await db
-				.update(user)
-				.set({ username: parse.data.username })
-				.where(eq(user.id, token.id));
+			try {
+				await db
+					.update(user)
+					.set({ username: parse.data.username })
+					.where(eq(user.id, token.id));
+			} catch {
+				return Response.json(
+					{
+						success: false,
+						message: `error in db`,
+					},
+					{
+						status: 400,
+					}
+				);
+			}
 			break;
 		default:
 			return Response.json(
