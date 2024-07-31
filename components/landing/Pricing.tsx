@@ -37,7 +37,7 @@ export default function Pricing() {
 							<ul className="space-y-2 text-muted-foreground">
 								<li>
 									<CheckIcon className="mr-2 inline-block h-4 w-4 stroke-blue-500" />
-									1,000,000 rows per generation
+									1,000 rows per generation
 								</li>
 								<li>
 									<CheckIcon className="mr-2 inline-block h-4 w-4 stroke-blue-500" />
