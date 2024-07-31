@@ -4,8 +4,59 @@ import { Button } from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import axios from "axios";
 import { Link } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
+
+function Row({ item }: any) {
+	const [loading, setLoading] = useState(false);
+	return (
+		<tr
+			key={item.title}
+			className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+		>
+			<th
+				scope="row"
+				className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+			>
+				{item.title}
+			</th>
+			<td className="px-6 py-4">
+				<Button
+					onClick={async () => {
+						setLoading(true);
+						try {
+							const response = await axios.post(
+								"http://datafy.fly.dev/download",
+								{ id: item.id },
+								{ responseType: "blob" }
+							);
+
+							const url = window.URL.createObjectURL(new Blob([response.data]));
+							const link = document.createElement("a");
+							link.href = url;
+							link.setAttribute("download", "data.csv");
+							document.body.appendChild(link);
+							link.click();
+							link.remove();
+						} catch (error) {
+							console.error("Error downloading the file:", error);
+						} finally {
+							setLoading(false);
+						}
+					}}
+					variant={"outline"}
+					disabled={loading}
+				>
+					{loading ? (
+						<ReloadIcon className="h-4 w-4 animate-spin mx-auto my-60" />
+					) : (
+						<>Download</>
+					)}
+				</Button>
+			</td>
+		</tr>
+	);
+}
 
 export default function Comp() {
 	const fetcher = (url: string) =>
@@ -70,37 +121,7 @@ export default function Comp() {
 					</thead>
 					<tbody>
 						{data.items.map((item: any) => {
-							return (
-								<tr
-									key={item.title}
-									className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-								>
-									<th
-										scope="row"
-										className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-									>
-										{item.title}
-									</th>
-									<td className="px-6 py-4">
-										<Button
-											onClick={async () => {
-												await axios.post(
-													"http://datafy.fly.dev/download",
-													{
-														id: item.id,
-													},
-													{
-														responseType: "blob",
-													}
-												);
-											}}
-											variant={"outline"}
-										>
-											Download
-										</Button>
-									</td>
-								</tr>
-							);
+							return <Row item={item} key={item.id} />;
 						})}
 					</tbody>
 					{data.items.length == 0 && (
