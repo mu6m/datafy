@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowRight, AwardIcon, RocketIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -36,12 +36,25 @@ export default function Hero() {
 					</p>
 				</div>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-					<Button size="lg" className="rounded-full">
-						<Link href="/auth/register">Get Started 👋</Link>
-					</Button>
-					<Button variant="secondary" size="lg" className="rounded-full">
-						<Link href="#feature">Learn More</Link>
-					</Button>
+					<a
+						href="/auth/register"
+						className={buttonVariants({
+							size: "lg",
+							className: "rounded-full",
+						})}
+					>
+						Get Started 👋
+					</a>
+					<a
+						href="#feature"
+						className={buttonVariants({
+							size: "lg",
+							className: "rounded-full",
+							variant: "secondary",
+						})}
+					>
+						Learn More
+					</a>
 				</div>
 				<div className="grid grid-cols-3 gap-4 text-sm text-muted-foreground">
 					<div className="flex flex-col items-center">
