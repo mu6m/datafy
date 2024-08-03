@@ -1,7 +1,8 @@
 "use server";
 
 import { db } from "@/db";
-import { column, task, taskStateEnum } from "@/db/schema";
+import { column, gen, task, taskStateEnum } from "@/db/schema";
+import { inngest } from "@/inngest/client";
 import { verifyAccessToken } from "@/lib/jwt";
 import { and, count, eq, ne } from "drizzle-orm";
 import { cookies } from "next/headers";
@@ -55,6 +56,11 @@ export async function form(prevState: any, formData: FormData) {
 	try {
 		await db.transaction(async (tx) => {
 			await tx.delete(column).where(eq(column.taskId, parse.data.id));
+			await tx.delete(gen).where(eq(gen.taskId, parse.data.id));
+			await db
+				.update(task)
+				.set({ state: "PENDING" })
+				.where(eq(task.id, parse.data.id));
 			const [result] = await tx
 				.update(task)
 				.set({
@@ -73,6 +79,13 @@ export async function form(prevState: any, formData: FormData) {
 				});
 			}
 			await tx.insert(column).values(insert_arr);
+			await inngest.send({
+				name: "generate",
+				data: {
+					id: result.id,
+					columns: insert_arr,
+				},
+			});
 		});
 	} catch (error) {
 		return {

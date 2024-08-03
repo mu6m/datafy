@@ -25,16 +25,15 @@ function Row({ item }: any) {
 					onClick={async () => {
 						setLoading(true);
 						try {
-							const response = await axios.post(
-								"http://datafy.fly.dev/download",
-								{ id: item.id },
-								{ responseType: "blob" }
-							);
+							const response = await axios.get(`/user/data/`, {
+								params: { id: item.id },
+								responseType: "blob",
+							});
 
 							const url = window.URL.createObjectURL(new Blob([response.data]));
 							const link = document.createElement("a");
 							link.href = url;
-							link.setAttribute("download", "data.csv");
+							link.setAttribute("download", `data-${item.id}.json`);
 							document.body.appendChild(link);
 							link.click();
 							link.remove();
