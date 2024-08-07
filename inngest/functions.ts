@@ -35,7 +35,7 @@ export const generate = inngest.createFunction(
 
 				Note:
 				- Return the json array only, no additional texts or comments
-				- Generate 100 rows
+				- Generate 50 rows
 		`;
 		while (true) {
 			const [rows] = await db
@@ -49,7 +49,7 @@ export const generate = inngest.createFunction(
 					.where(eq(task.id, event.data.id));
 				return { event, body: "Done" };
 			}
-			const ai_resp = await chat.sendMessage(prompt);
+			const ai_resp = await chat.sendMessage(prompt, { timeout: 1200 });
 			const responseText = ai_resp.response.text();
 			const responseJson = JSON.parse(responseText);
 			await db.insert(gen).values(
