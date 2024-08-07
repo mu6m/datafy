@@ -36,6 +36,7 @@ import { ExpandIcon, FileIcon, FilePenIcon } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function DataTable({ searchParams }: any) {
 	const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -105,7 +106,22 @@ export default function DataTable({ searchParams }: any) {
 												{item.title}
 											</TableCell>
 											<TableCell>{item.rows}</TableCell>
-											<TableCell>{item.state}</TableCell>
+											<TableCell>
+												{item.state}{" "}
+												{item.state == "ERROR" && (
+													<Button
+														variant={"outline"}
+														onClick={async () => {
+															await axios.get(
+																`/user/tasks/actions?id=${item.id}`
+															);
+															await mutate();
+														}}
+													>
+														Restart Task
+													</Button>
+												)}
+											</TableCell>
 											<TableCell>
 												<DropdownMenu>
 													<DropdownMenuTrigger asChild>
