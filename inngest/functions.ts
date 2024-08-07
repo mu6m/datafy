@@ -49,7 +49,7 @@ export const generate = inngest.createFunction(
 					.where(eq(task.id, event.data.id));
 				return { event, body: "Done" };
 			}
-			const ai_resp = await chat.sendMessage(prompt, { timeout: 1200 });
+			const ai_resp = await chat.sendMessage(prompt, { timeout: 600 });
 			const responseText = ai_resp.response.text();
 			const responseJson = JSON.parse(responseText);
 			await db.insert(gen).values(
