@@ -5,7 +5,15 @@ import { count, eq } from "drizzle-orm";
 import { gen, task } from "@/db/schema";
 
 export const generate = inngest.createFunction(
-	{ id: "generate" },
+	{
+		id: "generate",
+		onFailure: async ({ event, error }) => {
+			await db
+				.update(task)
+				.set({ state: "ERROR" })
+				.where(eq(task.id, event.data.event.data.id));
+		},
+	},
 	{ event: "generate" },
 	async ({ event, step }: any) => {
 		const genAI = new GoogleGenerativeAI(process.env.GEMINI_API!);
