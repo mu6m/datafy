@@ -26,7 +26,7 @@ export function UserNav() {
 				<Button variant="ghost" className="relative h-8 w-8 rounded-full">
 					<Avatar className="h-8 w-8">
 						<AvatarImage
-							src={`https://source.boringavatars.com/bauhaus/120/${user?.email}`}
+							src={`https://api.dicebear.com/9.x/glass/svg?seed=${user?.email}`}
 							alt={user?.username}
 						/>
 					</Avatar>
